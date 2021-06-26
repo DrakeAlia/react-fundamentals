@@ -18,14 +18,20 @@
 <!--   💰 document.getElementById('root') -->
 <!--   📜 https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/append -->
 
+
+
 <html>
   <body>
     <div id="root"></div>
     <script type="module">
+      // Access to the that div
       const rootElement = document.getElementById('root')
+      // Creating our own div using javascript
       const element = document.createElement('div')
+      // Modifying the div
       element.textContent = 'Hello Wolrd'
       element.className = 'container'
+      // To get the element on the page
       rootElement.append(element)
     </script>
   </body>
