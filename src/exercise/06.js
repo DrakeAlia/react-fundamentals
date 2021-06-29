@@ -4,17 +4,23 @@
 import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
-  const usernameInputRef = React.useRef();
+  const [err, setErr] = React.useState('');
+  const usernameInputRef = React.useRef()
   // 🐨 add a submit event handler here (`handleSubmit`).
   // 💰 Make sure to accept the `event` as an argument and call
   function handleSubmit(event) {
     // console.log(event)
     // `event.preventDefault()` to prevent the default behavior of form submit
     // events (which refreshes the page).
-    event.preventDefault();
+    event.preventDefault()
     // 💰 For example: event.target.elements[0].value
-    onSubmitUsername(usernameInputRef.current)
-  };
+    onSubmitUsername(usernameInputRef.current.value)
+  }
+  function handleChange(event) {
+    const {value} = event.target
+    const isLowerCase = value === value.toLowerCase();
+    setErr(isLowerCase ? null : 'Username must be lower case')
+  }
   // 📜 https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
   // 🐨 get the value from the username input (using whichever method
   // you prefer from the options mentioned in the instructions)
@@ -27,9 +33,12 @@ function UsernameForm({onSubmitUsername}) {
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="usernameInput">Username:</label>
-        <input id="usernameInput" type="text" ref={usernameInputRef} />
+        <input id="usernameInput" type="text" onChange={handleChange} ref={usernameInputRef} />
       </div>
-      <button type="submit">Submit</button>
+      <div style={{color: 'orange'}}>{err}</div>
+      <button disabled={Boolean(err)} type="submit">
+      Submit
+      </button>
     </form>
   )
 }
@@ -40,3 +49,5 @@ function App() {
 }
 
 export default App
+
+
